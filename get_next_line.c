@@ -6,7 +6,7 @@
 /*   By: gcadiou <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 17:17:41 by gcadiou           #+#    #+#             */
-/*   Updated: 2017/01/12 02:35:22 by gcadiou          ###   ########.fr       */
+/*   Updated: 2017/01/12 05:15:31 by gcadiou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,25 +49,15 @@ int		read_and_add(const int fd, t_gnl *gnl)
 		buf[ret] = '\0';
 		while (buf[i] != '\n' && i < ret)
 			i++;
-	//	ft_putnbr(ft_strlen(gnl->str_new));
-	//	ft_putchar('\n');
-		ft_putstr("avant : ");
-		ft_putendl(gnl->str_new);
-		ft_putnbr(ft_strlen(gnl->str_new));
 		gnl->str_new = ft_realloc(gnl->str_new, ft_strlen(gnl->str_new) + i + 1,
-				ft_strlen(gnl->str_new));
-		ft_putstr("entre : ");
-		ft_putendl(gnl->str_new);
+				ft_strlen(gnl->str_new) + 1);
 		ft_strncat(gnl->str_new, buf, i);
-		ft_putstr("apres : ");
-		ft_putendl(gnl->str_new);
-		ft_putstr("\n");
-
-/*		if (buf[i] == '\n')
+		if (buf[i] == '\n')
 		{
-			ft_strcat(gnl->str_old, &buf[i]);
+			gnl->str_old = malloc(sizeof(char) * (strlen(&buf[i]) + 1));
+			ft_strcpy(gnl->str_old, &buf[i]);
 			return (1);
-		}*/
+		}
 	}
 	return (0);
 }
@@ -76,14 +66,13 @@ int		get_next_line(const int fd, char **line)
 {
 	static t_gnl gnl[MULTI_FD];
 	char		buf[BUFF_SIZE + 1];
-	int			i;
-	int			i2;
 	int			ret;
 
-	i = 0;
-	i2 = 0;
-	ft_bzero(buf, BUFF_SIZE);
-	if (gnl[fd].notfirst == 1)
+	gnl[fd].str_new = (char *)malloc(sizeof(char) * 1);
+	gnl[fd].str_new[0] = '\0';
+	if (gnl[fd].notfirst != 1)
+		gnl[fd].notfirst = 1;
+	else
 		if (old_to_new(&(gnl[fd])))
 		{
 			*line = gnl[fd].str_new;

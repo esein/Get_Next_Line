@@ -6,7 +6,7 @@
 /*   By: gcadiou <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/21 20:41:42 by gcadiou           #+#    #+#             */
-/*   Updated: 2017/01/12 01:53:45 by gcadiou          ###   ########.fr       */
+/*   Updated: 2017/01/12 04:12:48 by gcadiou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ int	main(void)
 	t_gnl gnl[MULTI_FD];
 	gnl[fd].str_new = malloc(1);
 	gnl[fd].str_new[0] = '\0';
+	gnl[fd].str_old = malloc(1);
+	gnl[fd].str_old[0] = '\0';
 	read_and_add(fd, (&(gnl[fd])));
-//	ft_putstr(gnl[fd].str_new);
+	ft_putstr(gnl[fd].str_new);
+	ft_putstr(gnl[fd].str_old);
 	close(fd);
-//	ft_putstr(gnl[fd].str_old);
 	return(0);
 }

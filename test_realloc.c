@@ -6,11 +6,10 @@
 /*   By: gcadiou <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 22:53:32 by gcadiou           #+#    #+#             */
-/*   Updated: 2017/01/12 03:42:23 by gcadiou          ###   ########.fr       */
+/*   Updated: 2017/01/12 04:30:56 by gcadiou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
 #include "Libft.h"
 
 void	*test_rea(char *ptr, size_t size_to_malloc, size_t size_actual)
@@ -19,8 +18,11 @@ void	*test_rea(char *ptr, size_t size_to_malloc, size_t size_actual)
 	size_t	i;
 
 	i = 0;
-	new = malloc(size_to_malloc);
-	ft_memmove(new, ptr, size_actual);
+	if(ptr == NULL)
+		return (0);
+	new = (char *)malloc(sizeof(char) * size_to_malloc);
+	memmove(new, ptr, size_actual);
+	ft_putendl(new);
 	free(ptr);
 	return (new);
 }
