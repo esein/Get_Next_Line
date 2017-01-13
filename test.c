@@ -6,7 +6,7 @@
 /*   By: gcadiou <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/21 20:41:42 by gcadiou           #+#    #+#             */
-/*   Updated: 2017/01/12 04:12:48 by gcadiou          ###   ########.fr       */
+/*   Updated: 2017/01/13 08:17:18 by gcadiou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,24 @@ int	read_and_add(const int fd, t_gnl *gnl);
 int	main(void)
 {
 	int fd;
+	int fd2;
+	int x = 0;
+	char *line;
 	fd = open("asd", O_RDONLY);
-	t_gnl gnl[MULTI_FD];
+	fd2 = open("lol", O_RDONLY);
+/*	t_gnl gnl[MULTI_FD];
 	gnl[fd].str_new = malloc(1);
 	gnl[fd].str_new[0] = '\0';
 	gnl[fd].str_old = malloc(1);
 	gnl[fd].str_old[0] = '\0';
 	read_and_add(fd, (&(gnl[fd])));
 	ft_putstr(gnl[fd].str_new);
-	ft_putstr(gnl[fd].str_old);
+	ft_putstr(gnl[fd].str_old);*/
+	while (get_next_line(fd, &line))
+		ft_putstr(line);
+	while (get_next_line(fd2, &line))
+		ft_putstr(line);
 	close(fd);
+	close(fd2);
 	return(0);
 }
