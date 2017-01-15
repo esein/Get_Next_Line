@@ -6,11 +6,11 @@
 /*   By: gcadiou <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 17:17:41 by gcadiou           #+#    #+#             */
-/*   Updated: 2017/01/13 10:47:49 by gcadiou          ###   ########.fr       */
+/*   Updated: 2017/01/15 04:51:35 by gcadiou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "Libft/Includes/libft.h"
 #include "get_next_line.h"
 #include <unistd.h>
 #include <fcntl.h>
@@ -62,22 +62,23 @@ int		read_and_add(const int fd, t_gnl *gnl)
 		buf[ret] = '\0';
 		while (buf[i] != '\n' && i < ret)
 			i++;
-		if (i > 0)
-			gnl->check = 1;
+	//	if (i > 0)
+	//		gnl->check = 1;
 		gnl->str_new = ft_realloc(gnl->str_new, ft_strlen(gnl->str_new) + i + 1,
 				ft_strlen(gnl->str_new) + 1);
 		ft_strncat(gnl->str_new, buf, i);
 		if (buf[i] == '\n')
 		{
-			while (buf[i] == '\n')
-				i++;
-			if (buf[i] || gnl->check == 1)
-			{
-				gnl->check = 1;
+		//	while (buf[i] == '\n')
+		//		i++;
+		//	if (buf[i] || gnl->check == 1)
+		//	if (gnl->check == 1)
+		//	{
+			//	gnl->check = 1;
 				gnl->str_old = malloc(sizeof(char) * (ft_strlen(&buf[i]) + 1));
 				ft_strcpy(gnl->str_old, &buf[i]);
 				return (1);
-			}
+		//	}
 		}
 	}
 	return (0);
