@@ -6,7 +6,7 @@
 /*   By: gcadiou <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/21 20:41:42 by gcadiou           #+#    #+#             */
-/*   Updated: 2017/01/13 08:17:18 by gcadiou          ###   ########.fr       */
+/*   Updated: 2017/01/15 01:37:33 by gcadiou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,26 @@ int	main(void)
 	read_and_add(fd, (&(gnl[fd])));
 	ft_putstr(gnl[fd].str_new);
 	ft_putstr(gnl[fd].str_old);*/
-	while (get_next_line(fd, &line))
-		ft_putstr(line);
 	while (get_next_line(fd2, &line))
 		ft_putstr(line);
+/*	ft_putnbr(get_next_line(fd, &line));
+//	ft_putstr(line);
+	ft_putnbr(get_next_line(fd, &line));
+//	ft_putstr(line);
+	ft_putnbr(get_next_line(fd, &line));
+//	ft_putstr(line);
+	ft_putnbr(get_next_line(fd, &line));
+//	ft_putstr(line);
+	//	while (get_next_line(fd2, &line))
+//		ft_putstr(line);
+	get_next_line(fd, &line);
+	ft_putnbr(strcmp(line,"aaa"));
+	get_next_line(fd, &line);
+	ft_putnbr(strcmp(line,"bbb"));
+	get_next_line(fd, &line);
+	ft_putnbr(strcmp(line,"ccc"));
+	get_next_line(fd, &line);
+	ft_putnbr(strcmp(line,"ddd"));*/
 	close(fd);
 	close(fd2);
 	return(0);

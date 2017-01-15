@@ -6,7 +6,7 @@
 /*   By: gcadiou <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 17:17:41 by gcadiou           #+#    #+#             */
-/*   Updated: 2017/01/13 08:27:47 by gcadiou          ###   ########.fr       */
+/*   Updated: 2017/01/13 10:47:49 by gcadiou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,26 @@
 int		old_to_new(t_gnl *gnl)
 {
 	int		i;
+	int		i2;
 	char	*tmp;
 
 	i = 0;
+	i2 = 0;
+	while (gnl->str_old[i] == '\n')
+		i++;
 	gnl->str_new = malloc(sizeof(char) *
 			(1 + ft_strlentil(gnl->str_old, '\n', i)));
 	while (gnl->str_old[i])
 	{
-		gnl->str_new[i] = gnl->str_old[i];
+		gnl->ret = 1;
+		gnl->str_new[i2] = gnl->str_old[i];
 		i++;
+		i2++;
 		if (gnl->str_old[i] == '\n')
 		{
 			gnl->str_new[i] = '\0';
 			i++;
-			tmp = ft_strsub(gnl->str_old, i, ft_strlentil(gnl->str_old, '\n',
-						i));
+			tmp = ft_strsub(gnl->str_old, i, ft_strlen(&gnl->str_old[i]));
 			free(gnl->str_old);
 			gnl->str_old = tmp;
 			return (1);
@@ -52,6 +57,7 @@ int		read_and_add(const int fd, t_gnl *gnl)
 
 	while ((ret = read(fd, buf, BUFF_SIZE)))
 	{
+		gnl->ret = 1;
 		i = 0;
 		buf[ret] = '\0';
 		while (buf[i] != '\n' && i < ret)
@@ -81,9 +87,8 @@ int		get_next_line(const int fd, char **line)
 {
 	static t_gnl gnl[MULTI_FD];
 
-//	*line = (char *)malloc(sizeof(char) * 1);
-//	*line[0] = '\0';
 	gnl[fd].check = 0;
+	gnl[fd].ret = 0;
 	gnl[fd].str_new = (char *)malloc(sizeof(char) * 1);
 	gnl[fd].str_new[0] = '\0';
 	if (gnl[fd].notfirst == 1)
@@ -96,6 +101,6 @@ int		get_next_line(const int fd, char **line)
 	}
 	gnl[fd].notfirst = read_and_add(fd, &(gnl[fd]));
 	*line = gnl[fd].str_new;
-	return (gnl[fd].check);
+	return (gnl[fd].ret);
 //	return ((*line[0] == '\0') ? 0 : 1);
 }
