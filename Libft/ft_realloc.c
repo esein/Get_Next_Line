@@ -6,7 +6,7 @@
 /*   By: gcadiou <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/22 23:40:08 by gcadiou           #+#    #+#             */
-/*   Updated: 2017/01/12 03:35:57 by gcadiou          ###   ########.fr       */
+/*   Updated: 2017/01/15 09:16:06 by gcadiou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_realloc(void *ptr, size_t size_to_malloc, size_t size_actual)
 	size_t	i;
 
 	i = 0;
-	if(ptr == NULL)
+	if (ptr == NULL)
 		return (0);
 	new = malloc(size_to_malloc);
 	ft_memmove(new, ptr, size_actual);
