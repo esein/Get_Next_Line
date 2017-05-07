@@ -6,14 +6,14 @@
 /*   By: gcadiou <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/21 20:41:42 by gcadiou           #+#    #+#             */
-/*   Updated: 2017/01/22 17:40:44 by gcadiou          ###   ########.fr       */
+/*   Updated: 2017/05/08 01:20:21 by gcadiou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
-#include "Libft/Includes/libft.h"
+#include "libft.h"
 #include "get_next_line.h"
 
 int	read_and_add(const int fd, t_gnl *gnl);
