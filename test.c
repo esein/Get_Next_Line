@@ -6,7 +6,7 @@
 /*   By: gcadiou <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/21 20:41:42 by gcadiou           #+#    #+#             */
-/*   Updated: 2017/01/15 09:17:59 by gcadiou          ###   ########.fr       */
+/*   Updated: 2017/01/22 17:40:44 by gcadiou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,34 @@
 
 int	read_and_add(const int fd, t_gnl *gnl);
 
-int	main(void)
+int	main(int argc, char **argv)
 {
-	int fd = 1;
-//	int fd2;
+	int fd;
+	int fd2;
+	int fd3;
 	int ret = 0;
 	char *line;
 	line = NULL;
-	t_gnl gnl[MULTI_FD];
-//	fd = open("lol", O_RDONLY);
-	gnl[fd].str_new = malloc(1);
+	if(argc < 2)
+		return (0);
+	fd = open(argv[1], O_RDONLY);
+	fd2 = open(argv[2], O_RDONLY);
+	fd3 = open(argv[3], O_RDONLY);
+/*	gnl[fd].str_new = malloc(1);
 	gnl[fd].str_new[0] = '\0';
 	gnl[fd].str_old = malloc(1);
 	gnl[fd].str_old[0] = '\0';
-	write(1,"asd",3);
+	write(1,"asd",3);*/
+	while ((ret = get_next_line(fd2, &line)) > 0)
+	{
+		ft_putendl(line);
+	}
 	while ((ret = get_next_line(fd, &line))> 0)
 	{
-		ft_putnbr(ret);
+		ft_putendl(line);
+	}
+	while((ret = get_next_line(fd3, &line)) > 0)
+	{
 		ft_putendl(line);
 	}
 //	ft_putnbr(get_next_line(fd, &line));
@@ -56,6 +67,7 @@ int	main(void)
 	get_next_line(fd, &line);
 	ft_putnbr(strcmp(line,"ddd"));*/
 	close(fd);
-//	close(fd2);
+	close(fd2);
+	close(fd3);
 	return(0);
 }

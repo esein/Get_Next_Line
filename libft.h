@@ -6,7 +6,7 @@
 /*   By: gcadiou <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 05:25:10 by gcadiou           #+#    #+#             */
-/*   Updated: 2016/12/22 23:59:40 by gcadiou          ###   ########.fr       */
+/*   Updated: 2017/03/21 18:48:46 by gcadiou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,41 @@
 # include <unistd.h>
 # include <string.h>
 # include <stdlib.h>
+# include <errno.h>
+# include <stdio.h>
+# include "get_next_line.h"
 
 # define ISSPACE(s, i) s[i] == ' ' || s[i] == '\n' || s[i] == '\t'
 
-# define DECLAR size_t	is,in,lens1,lens2;
+# define COLOR(param) ft_putstr(param)
 
-# define MALLOCGRAT (char *)malloc(sizeof(char) * strlentil(s, c, is) + 1)
+# define NONE		"\033[0m"
 
-# define DECLAR2 size_t is,it2 = 0;
+# define STRONG		"\033[1m"
+
+# define BLACK		"\033[30m"
+# define S_BLACK	"\033[30;1m"
+
+# define RED		"\033[31m"
+# define S_RED		"\033[31;1m"
+
+# define GREEN		"\033[32m"
+# define S_GREEN	"\033[32;1m"
+
+# define BROWN		"\033[33m"
+# define S_BROWN	"\033[33;1m"
+
+# define BLUE		"\033[34m"
+# define S_BLUE		"\033[34;1m"
+
+# define MAGENTA	"\033[35m"
+# define S_MAGENTA	"\033[35;1m"
+
+# define CYAN		"\033[36m"
+# define S_CYAN		"\033[36;1m"
+
+# define WHITE		"\033[37m"
+# define S_WHITE	"\033[37;1m"
 
 typedef struct		s_list
 {
@@ -36,7 +63,13 @@ void				ft_putchar(char c);
 
 void				ft_putstr(char const *s);
 
+void				ft_putstr_size(char const *s, int size);
+
+void				ft_put_nb_c(char c, int nb);
+
 int					ft_strlen(const char *s);
+
+int					ft_intlen(int nb);
 
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
 
@@ -148,4 +181,11 @@ int					ft_strlentil(const char *s, char c, size_t i);
 
 void				*ft_realloc(void *ptr, size_t size, size_t size_actual);
 
+char				*ft_strcut(char *s, int start, int end);
+
+char				*ft_str_endcut(char *s, int size);
+
+char				*ft_str_endcut_until(char *s, char c);
+
+void				check_malloc(void *ptr);
 #endif
