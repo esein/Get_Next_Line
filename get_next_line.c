@@ -6,7 +6,7 @@
 /*   By: gcadiou <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 17:17:41 by gcadiou           #+#    #+#             */
-/*   Updated: 2017/06/28 16:09:15 by gcadiou          ###   ########.fr       */
+/*   Updated: 2017/09/15 08:20:29 by gcadiou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int				old_to_new(t_gnl *gnl)
 
 	i = 0;
 	i2 = 0;
+	if (gnl->str_new)
+		free(gnl->str_new);
 	check_malloc(gnl->str_new = malloc(sizeof(char) *
 			(1 + ft_strlentil(gnl->str_old, '\n', 0))), "gnl: old_to_new");
 	while (gnl->str_old[i])
@@ -58,8 +60,10 @@ int				read_and_add(const int fd, t_gnl *gnl)
 		buf[ret] = '\0';
 		while (buf[i] != '\n' && i < ret)
 			i++;
-		gnl->str_new = ft_realloc(gnl->str_new, sizeof(char) *
-				(ft_strlen(gnl->str_new) + i + 1), ft_strlen(gnl->str_new) + 1);
+		gnl->str_new = realloc(gnl->str_new, sizeof(char) *
+				(ft_strlen(gnl->str_new) + i + 1));
+	//	gnl->str_new = ft_realloc(gnl->str_new, sizeof(char) *
+	//			(ft_strlen(gnl->str_new) + i + 1), ft_strlen(gnl->str_new) + 1);
 		ft_strncat(gnl->str_new, buf, i);
 		if (buf[i] == '\n')
 		{
@@ -84,6 +88,7 @@ int				wicheone(int fd, t_gnl **gnl)
 		{
 			((*gnl)[i]).last = 0;
 			i++;
+			ft_putstr("tamere");
 			*gnl = (t_gnl*)ft_realloc(*gnl, (sizeof(t_gnl) * (i + 1)),
 						sizeof(t_gnl) * i);
 			((*gnl)[i]).fd = fd;
@@ -98,7 +103,9 @@ int				wicheone(int fd, t_gnl **gnl)
 static	void	vivelanorme2(t_gnl *gnl)
 {
 	gnl->ret = 0;
-	check_malloc(gnl->str_new = (char *)malloc(sizeof(char)),
+	if (gnl->str_new)
+		free(gnl->str_new);
+	check_malloc(gnl->str_new = (char *)ft_memalloc(sizeof(char)),
 			"gnl: vivelanorme2");
 	gnl->str_new[0] = '\0';
 }
@@ -112,7 +119,7 @@ int				get_next_line(const int fd, char **line)
 		return (-1);
 	if (gnl == NULL)
 	{
-		check_malloc(gnl = (t_gnl*)malloc(sizeof(t_gnl) * 1),
+		check_malloc(gnl = (t_gnl*)ft_memalloc(sizeof(t_gnl) * 1),
 				"gnl: get_next_line");
 		gnl[0].last = 1;
 		gnl[0].fd = fd;
@@ -129,5 +136,13 @@ int				get_next_line(const int fd, char **line)
 	*line = gnl[act].str_new;
 	if (gnl[act].notfirst == -1)
 		return (-1);
+//	check_free(
+	if (gnl[act].ret == 0)
+	{
+		free(gnl[act].str_new);
+		free(gnl);
+		*line = NULL;
+		return (0);
+	}
 	return (gnl[act].ret);
 }
